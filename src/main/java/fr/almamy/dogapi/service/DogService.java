@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DogService {
@@ -23,7 +24,8 @@ public class DogService {
     }
 
     public String retrieveDogBreedById(Long id){
-        return dogRepository.findBreedById(id);
+        Optional<String> optionalBreed = Optional.ofNullable(dogRepository.findBreedById(id));
+        return optionalBreed.orElseThrow(DogNotFoundException::new);
     }
 
     public List<String> retrieveDogNames(){
