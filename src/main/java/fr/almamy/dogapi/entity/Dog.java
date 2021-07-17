@@ -1,18 +1,19 @@
 package fr.almamy.dogapi.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Setter @Getter
+@AllArgsConstructor @NoArgsConstructor
 @Entity
 public class Dog {
-    /// Fields
-    @Getter @Setter
+    //\\ Fields \\//
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String breed;
