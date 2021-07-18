@@ -2,17 +2,17 @@ package fr.almamy.dogapi.service;
 
 import fr.almamy.dogapi.entity.Dog;
 import fr.almamy.dogapi.repository.DogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class DogService {
     //\\ Fields \\//
-    @Autowired
-    DogRepository dogRepository;
+    private final DogRepository dogRepository;
 
     //\\ Public Methods \\//
     public List<Dog> retrieveDogs(){
