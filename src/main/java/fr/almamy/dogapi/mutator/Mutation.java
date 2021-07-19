@@ -40,12 +40,12 @@ public class Mutation implements GraphQLMutationResolver {
         return true;
     }
 
-    public Dog updateDogName(String name, Long id){
+    public Dog updateDogName(String newName, Long id){
         Optional<Dog> optional = dogRepository.findById(id);
 
         if (optional.isPresent()){
             Dog dog = optional.get();
-            dog.setName(name);
+            dog.setName(newName);
             dogRepository.save(dog);
             return dog;
         }
