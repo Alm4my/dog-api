@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Dog {
     //\\ Fields \\//
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String breed;
