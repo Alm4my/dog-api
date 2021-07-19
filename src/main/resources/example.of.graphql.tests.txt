@@ -1,0 +1,51 @@
+# From GraphIQL
+query first {
+  findAllDogs {
+    id
+    name
+    breed
+    origin
+  }
+}
+
+query second {
+  findDogById(id: 3) {
+    name
+  }
+}
+
+mutation four {
+  newDog(name: "Husky", breed: "Wolf", origin: "Abidjan, Ci") {
+    id
+    name
+    breed
+    origin
+  }
+}
+
+
+mutation five
+{
+  updateDogName(newName: "BANNI", id:5){
+    name
+    id
+    breed
+  }
+
+}
+
+### From Postman
+## Make sure the requests are POST and add the following in the body of the requests
+## We can also use the GraphQL body option next to binary
+
+{
+    "query": "{findDogById(id:4) { id origin}}"
+}
+
+{
+    "query": "mutation {deleteDogBreed(breed: \"Direwolf\")}"
+}
+
+{
+    "query": "mutation {updateDogName(newName: \"ABIDJAN\", id: 1) {name id origin}}"
+}
