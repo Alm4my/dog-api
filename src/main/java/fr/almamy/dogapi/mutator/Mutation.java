@@ -31,6 +31,7 @@ public class Mutation implements GraphQLMutationResolver {
             if (d.getBreed().equalsIgnoreCase(breed)){
                 /// delete
                 dogRepository.delete(d);
+                /// We can add break here after delete to delete only the first occurrence of the breed
                 deleted = true;
             }
         /// Throw exception if the breed doesn't exist
