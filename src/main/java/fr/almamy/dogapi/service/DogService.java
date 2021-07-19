@@ -1,6 +1,7 @@
 package fr.almamy.dogapi.service;
 
 import fr.almamy.dogapi.entity.Dog;
+import fr.almamy.dogapi.exception.DogNotFoundException;
 import fr.almamy.dogapi.repository.DogRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
