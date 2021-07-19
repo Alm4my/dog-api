@@ -19,7 +19,7 @@ public class Dog {
     private String breed;
     private String origin;
 
-    //\\ Constructor \\//
+    //\\ Constructors \\//
     public Dog(String name, String breed, String origin){
         this.name = name;
         this.breed = breed;
