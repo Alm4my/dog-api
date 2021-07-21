@@ -2,6 +2,8 @@ package fr.almamy.dogapi.web;
 
 import fr.almamy.dogapi.entity.Dog;
 import fr.almamy.dogapi.service.DogService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@ApiResponses(value = {
+        @ApiResponse(code = 500, message = "The server is down. Please make sure the dog api is running."),
+        @ApiResponse(code = 200, message = "Success! Success")
+})
 @RestController
 @AllArgsConstructor
 public class DogController {
