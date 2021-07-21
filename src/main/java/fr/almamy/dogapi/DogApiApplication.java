@@ -9,6 +9,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @SpringBootApplication
 @Slf4j
 public class DogApiApplication {
@@ -27,12 +29,13 @@ public class DogApiApplication {
     }
 
     @Bean
-    public CommandLineRunner run (RestTemplate restTemplate) throws Exception{
+    public CommandLineRunner run (RestTemplate restTemplate) {
         return args -> {
-            Joke joke = restTemplate.getForObject(URL, Joke.class);
-            assert joke != null;
-            log.info("Setup: {}", joke.getSetup());
-            log.info("Punchline: {}", joke.getPunchline());
+            Optional<Joke> joke = Optional.ofNullable(restTemplate.getForObject(URL, Joke.class));
+            if (joke.isPresent()){
+                log.info("Setup: {}", joke.get().getSetup());
+                log.info("Punchline: {}", joke.get().getPunchline());
+            }
         };
     }
 
