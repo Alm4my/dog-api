@@ -1,28 +1,14 @@
 package fr.almamy.dogapi.web;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.*;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.Base64Utils;
-import org.springframework.web.reactive.function.client.ExchangeFilterFunctions;
-import org.springframework.web.reactive.function.client.WebClient;
-
-import java.nio.charset.StandardCharsets;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.springframework.web.reactive.function.client.ExchangeFilterFunctions.basicAuthentication;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,13 +21,11 @@ public class DogControllerIntegrationTest {
     private int port;
 
     @Autowired
-    private TestRestTemplate restTemplate;
-    @Autowired
     private WebTestClient client;
 
     //\\ Tests \\//
     @Test
-    public void checkRequireAuth(){
+    public void checkRequireAuth() {
         client.get()
                 .exchange()
                 .expectStatus()
@@ -49,7 +33,7 @@ public class DogControllerIntegrationTest {
     }
 
     @Test
-    public void getAllDogs(){
+    public void getAllDogs() {
         WebTestClient
                 .bindToServer()
                 .baseUrl(HOST + port)
@@ -63,13 +47,21 @@ public class DogControllerIntegrationTest {
     }
 
     @Test
-    public void getBreedById(){
-        ResponseEntity<String> response = restTemplate.getForEntity(HOST + port + "/1/breed", String.class);
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+    public void getBreedById() {
+        client
+                .get()
+                .uri("/1/breed")
+                .headers(httpHeaders -> httpHeaders.setBasicAuth("admin", "password"))
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectHeader()
+                .contentType(MediaType.TEXT_PLAIN + ";charset=UTF-8")
+                .expectBody();
     }
 
     @Test
-    public void getAllBreeds(){
+    public void getAllBreeds() {
         client.get()
                 .uri("/dogs/breed")
                 .headers((header -> header.setBasicAuth("admin", "password")))
@@ -79,7 +71,7 @@ public class DogControllerIntegrationTest {
     }
 
     @Test
-    public void getAllDogNames(){
+    public void getAllDogNames() {
         client
                 .get()
                 .uri("/dogs/name")
